@@ -1,0 +1,38 @@
+{
+    "parameters": {
+        "#access_token": "SECRET_VALUE",
+        "destination": {
+            "incremental": true,
+            "output_table_name": "basic report"
+        },
+        "advertiser_id": "",
+        "report_settings": {
+            "data_level": "AUCTION_CAMPAIGN",
+            "metrics": "spend,cpc,cpm,impressions,clicks,ctr,reach,cost_per_1000_reached,conversion,cost_per_conversion,conversion_rate,real_time_conversion,real_time_cost_per_conversion,real_time_conversion_rate,result,cost_per_result,result_rate,real_time_result,real_time_cost_per_result,real_time_result_rate,secondary_goal_result,cost_per_secondary_goal_result,secondary_goal_result_rate",
+            "date_from": "November 30, 2021",
+            "date_to": "November 30, 2021",
+            "dimensions": "campaign_id, stat_time_day",
+            "report_type": "BASIC",
+            "service_type": "AUCTION"
+        }
+    },
+    "action": "run",
+    "authorization": {
+        "oauth_api": {
+            "id": "OAUTH_API_ID",
+            "credentials": {
+                "id": "main",
+                "authorizedFor": "Myself",
+                "creator": {
+                    "id": "1234",
+                    "description": "me@keboola.com"
+                },
+                "created": "2016-01-31 00:13:30",
+                "#data": "{\"data\": {\"access_token\" : \"SECRET_VALUE\",\"advertiser_ids\":[SECRET_VALUE]}}",
+                "oauthVersion": "2.0",
+                "appKey": "SECRET_VALUE",
+                "#appSecret": "SECRET_VALUE"
+            }
+        }
+    }
+}

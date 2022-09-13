@@ -1,0 +1,1 @@
+TikTok is a video-sharing focused social networking service.

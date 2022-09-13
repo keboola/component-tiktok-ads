@@ -1,0 +1,173 @@
+{
+  "title": "Row Configuration",
+  "type": "object",
+  "required": [
+    "advertiser_id",
+    "report_settings",
+    "destination"
+  ],
+  "properties": {
+    "advertiser_id": {
+      "title": "Advertiser ID",
+      "type": "string",
+      "propertyOrder": 10,
+      "description": "Specifies ad account for which the report will be downloaded. Multiple ad accounts should be input as a comma separated list. If left empty all ad accounts will be downloaded."
+    },
+    "report_settings": {
+      "title": "Report Settings",
+      "type": "object",
+      "propertyOrder": 20,
+      "required": [
+        "dimensions",
+        "metrics",
+        "report_type",
+        "date_from",
+        "service_type",
+        "date_to",
+        "metrics"
+      ],
+      "properties": {
+        "report_type": {
+          "title": "Report type",
+          "type": "string",
+          "required": true,
+          "enum": [
+            "BASIC",
+            "AUDIENCE",
+            "PLAYABLE_MATERIAL",
+            "CATALOG"
+          ],
+          "default": "BASIC",
+          "propertyOrder": 10,
+          "description": "Select one of the available report types described in the <a href=https://ads.tiktok.com/gateway/docs/index?identify_key=2b9b4278e47b275f36e7c39a4af4ba067d088e031d5f5fe45d381559ac89ba48&language=ENGLISH&doc_id=1701890951192578'>documentation</a>"
+        },
+        "service_type": {
+          "title": "Service type",
+          "type": "string",
+          "required": true,
+          "enum": [
+            "AUCTION",
+            "RESERVATION"
+          ],
+          "default": "AUCTION",
+          "description": "Select one of the service types described in the <a href='https://ads.tiktok.com/marketing_api/docs?id=1740302848100353'>documentation</a>",
+          "propertyOrder": 20
+        },
+        "data_level": {
+          "title": "Data Level",
+          "type": "string",
+          "enum": [
+            "NOT_DEFINED",
+            "AUCTION_AD",
+            "AUCTION_ADGROUP",
+            "AUCTION_ADVERTISER",
+            "AUCTION_CAMPAIGN",
+            "RESERVATION_AD",
+            "RESERVATION_ADGROUP",
+            "RESERVATION_ADVERTISER",
+            "RESERVATION_CAMPAIGN"
+          ],
+          "description": "Select one of the data level types described in the <a href='https://ads.tiktok.com/marketing_api/docs?id=1740302848100353'>documentation</a>. Use NOT_DEFINED if you do not need the data level, e.g. with the report type PLAYABLE_MATERIAL",
+          "propertyOrder": 30
+        },
+        "dimensions": {
+          "type": "string",
+          "title": "Dimensions",
+          "format": "textarea",
+          "options": {
+            "input_height": "100px"
+          },
+          "description": "Comma separated list of dimensions to use for the report, find supported dimensions for specific report types in the <a href='https://ads.tiktok.com/marketing_api/docs?id=1738864835805186'>documentation</a>",
+          "propertyOrder": 40
+        },
+        "metrics": {
+          "type": "string",
+          "format": "textarea",
+          "options": {
+            "input_height": "100px"
+          },
+          "title": "Metrics",
+          "description": "Comma separated list of metrics to use for the report, find supported metrics for specific report types in the <a href='https://ads.tiktok.com/marketing_api/docs?id=1738864835805186'>documentation</a>",
+          "propertyOrder": 50
+        },
+        "date_from": {
+          "type": "string",
+          "title": "Date From",
+          "default": "1 week ago",
+          "description": "Start date of the report. Either date in YYYY-MM-DD format or dateparser string i.e. 5 days ago, 1 month ago, yesterday, etc.",
+          "propertyOrder": 60
+        },
+        "date_to": {
+          "type": "string",
+          "title": "Date to",
+          "default": "now",
+          "description": "End date of the report. Either date in YYYY-MM-DD format or dateparser string i.e. 5 days ago, 1 month ago, yesterday, etc.",
+          "propertyOrder": 70
+        },
+        "filters": {
+          "type": "array",
+          "format": "table",
+          "options": {"hidden": true},
+          "title": "Filter",
+          "propertyOrder": 100,
+          "items": {
+            "type": "object",
+            "title": "Filter",
+            "properties": {
+              "field_name": {
+                "title": "Field name",
+                "type": "string",
+                "propertyOrder": 150
+              },
+              "filter_type": {
+                "type": "string",
+                "title": "Type",
+                "required": true,
+                "enum": [
+                  "IN",
+                  "MATCH",
+                  "GREATER_THAN",
+                  "GREATER_EQUAL",
+                  "LOWER_THAN",
+                  "LOWER_EQUAL",
+                  "RANGE"
+                ],
+                "propertyOrder": 200,
+                "default": "MATCH"
+              },
+              "filter_value": {
+                "type": "string",
+                "title": "Value",
+                "propertyOrder": 300
+              }
+            }
+          }
+        }
+      }
+    },
+    "destination": {
+      "title": "Destination",
+      "type": "object",
+      "propertyOrder": 30,
+      "required": [
+        "output_table_name",
+        "incremental"
+      ],
+      "properties": {
+        "output_table_name": {
+          "type": "string",
+          "title": "Storage Table Name",
+          "description": "Name of the table stored in Storage.",
+          "propertyOrder": 10
+        },
+        "incremental": {
+          "type": "boolean",
+          "format": "checkbox",
+          "title": "Incremental Load",
+          "description": "If incremental load is turned on, the table will be updated instead of rewritten. Tables with a primary key will have rows updated, tables without a primary key will have rows appended.",
+          "propertyOrder": 20
+        }
+      }
+    }
+  }
+}

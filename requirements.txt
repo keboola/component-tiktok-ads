@@ -1,0 +1,6 @@
+keboola.component==1.3.5
+keboola.utils
+keboola.http-client
+mock~=4.0.3
+freezegun~=1.2.2
+dateparser~=1.1.1

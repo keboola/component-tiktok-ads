@@ -1,0 +1,1 @@
+This component enables users to extract integrated TikTok Ad reports into Keboola
