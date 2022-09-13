@@ -153,7 +153,7 @@ class Component(ComponentBase):
     def _get_access_token(self) -> str:
         try:
             return self.configuration.oauth_credentials["data"]['data']["access_token"]
-        except KeyError as err:
+        except (KeyError, TypeError) as err:
             raise UserException("Configuration is improperly authorized, "
                                 "could not get access token from OAuth Credentials. Response from TikTok : "
                                 f"{self.configuration.oauth_credentials['data']['data'].get('message')}") from err
@@ -164,7 +164,7 @@ class Component(ComponentBase):
         if not advertiser_ids:
             try:
                 return self.configuration.oauth_credentials["data"]["data"]["advertiser_ids"]
-            except KeyError as err:
+            except (KeyError, TypeError) as err:
                 raise UserException(
                     f"Configuration is improperly authorized, could not get advertiser ids from OAuth Credentials."
                     " Response from TikTok : "
