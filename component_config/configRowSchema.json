@@ -107,7 +107,9 @@
         "filters": {
           "type": "array",
           "format": "table",
-          "options": {"hidden": true},
+          "options": {
+            "hidden": true
+          },
           "title": "Filter",
           "propertyOrder": 100,
           "items": {

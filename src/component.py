@@ -77,7 +77,7 @@ class Component(ComponentBase):
 
         columns, primary_keys = self._get_columns_and_keys()
 
-        if destination_incremental and ("stat_time_day" not in columns or "stat_time_hour" not in columns):
+        if destination_incremental and not ("stat_time_day" in columns or "stat_time_hour" in columns):
             logging.warning("You are using incremental mode, but are not using any dimension for time/date, "
                             "therefore you are overwriting data in the source."
                             " And you will not know the range of the data. We encourage you to use stat_time_day "
@@ -171,7 +171,6 @@ class Component(ComponentBase):
                     f"{self.configuration.oauth_credentials['data']['data'].get('message')}") from err
         if not advertiser_ids:
             advertiser_ids = []
-
         return advertiser_ids
 
     @staticmethod
