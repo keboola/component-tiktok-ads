@@ -3,7 +3,11 @@ TikTok Ads Extractor
 
 TikTok is a video-sharing focused social networking service.
 
-This component enables users to extract integrated TikTok Ad reports into Keboola
+This component enables users to extract integrated TikTok Ad reports into Keboola. 
+
+
+The component uses the TikTok API v1.3 and requests a [synchronous report](https://ads.tiktok.com/marketing_api/docs?id=1740302848100353).
+Currently the filtering is not supported. 
 
 **Table of contents:**
 

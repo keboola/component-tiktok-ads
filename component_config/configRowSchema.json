@@ -39,7 +39,7 @@
           ],
           "default": "BASIC",
           "propertyOrder": 10,
-          "description": "Select one of the available report types described in the <a href=https://ads.tiktok.com/gateway/docs/index?identify_key=2b9b4278e47b275f36e7c39a4af4ba067d088e031d5f5fe45d381559ac89ba48&language=ENGLISH&doc_id=1701890951192578'>documentation</a>"
+          "description": "Select one of the available report types described in the <a href='https://ads.tiktok.com/gateway/docs/index?identify_key=2b9b4278e47b275f36e7c39a4af4ba067d088e031d5f5fe45d381559ac89ba48&language=ENGLISH&doc_id=1701890951192578'>documentation</a>"
         },
         "service_type": {
           "title": "Service type",
@@ -56,6 +56,7 @@
         "data_level": {
           "title": "Data Level",
           "type": "string",
+          "required": true,
           "enum": [
             "NOT_DEFINED",
             "AUCTION_AD",

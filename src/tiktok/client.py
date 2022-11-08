@@ -3,8 +3,8 @@ from keboola.http_client import HttpClient
 
 SANDBOX_URL = "https://sandbox-ads.tiktok.com/open_api/"
 PRODUCTION_URL = "https://business-api.tiktok.com/open_api/"
-DEFAULT_API_VERSION = "v1.2/"
-INTEGRATED_REPORTS_ENDPOINT = "reports/integrated/get"
+DEFAULT_API_VERSION = "v1.3/"
+INTEGRATED_REPORTS_ENDPOINT = "report/integrated/get"
 
 OK_MESSAGE = "OK"
 
