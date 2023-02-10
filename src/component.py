@@ -1,18 +1,19 @@
 import csv
-import string
-import logging
-import dateparser
-import warnings
 import datetime
-import re
+import logging
 import os
+import re
+import string
+import warnings
 from typing import Tuple, List, Dict
-from tiktok import TikTokClient, TikTokClientException
+
+import dateparser
+from keboola.component.base import ComponentBase
+from keboola.component.dao import TableDefinition
+from keboola.component.exceptions import UserException
 from keboola.utils.helpers import comma_separated_values_to_list
 
-from keboola.component.base import ComponentBase
-from keboola.component.exceptions import UserException
-from keboola.component.dao import TableDefinition
+from tiktok import TikTokClient, TikTokClientException
 
 KEY_ACCESS_TOKEN = "#access_token"
 
@@ -152,11 +153,14 @@ class Component(ComponentBase):
 
     def _get_access_token(self) -> str:
         try:
-            return self.configuration.oauth_credentials["data"]['data']["access_token"]
+            return self.configuration.oauth_credentials.data['data']["access_token"]
         except (KeyError, TypeError) as err:
+            auth_response = self.configuration.oauth_credentials.data
             raise UserException("Configuration is improperly authorized, "
                                 "could not get access token from OAuth Credentials. Response from TikTok : "
-                                f"{self.configuration.oauth_credentials['data']['data'].get('message')}") from err
+                                f"{auth_response.get('code')} - {auth_response.get('message')} "
+                                f"; data keys: {list(self.configuration.oauth_credentials.data['data'].keys())} "
+                                f";Request ID: {auth_response['request_id']}") from err
 
     def _get_advertiser_ids(self) -> List[str]:
         params = self.configuration.parameters
