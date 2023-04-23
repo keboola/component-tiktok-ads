@@ -10,7 +10,8 @@ from typing import Tuple, List, Dict
 from tiktok import TikTokClient, TikTokClientException
 from keboola.utils.helpers import comma_separated_values_to_list
 
-from keboola.component.base import ComponentBase
+from keboola.component.base import ComponentBase, sync_action
+from keboola.component.sync_actions import SelectElement
 from keboola.component.exceptions import UserException
 from keboola.component.dao import TableDefinition
 
@@ -160,7 +161,10 @@ class Component(ComponentBase):
 
     def _get_advertiser_ids(self) -> List[str]:
         params = self.configuration.parameters
-        advertiser_ids = comma_separated_values_to_list(params.get(KEY_ADVERTISER_ID, ""))
+        if isinstance(params.get(KEY_ADVERTISER_ID, ""), str):
+            advertiser_ids = comma_separated_values_to_list(params.get(KEY_ADVERTISER_ID, ""))
+        else:
+            advertiser_ids = params.get(KEY_ADVERTISER_ID, [])
         if not advertiser_ids:
             try:
                 return self.configuration.oauth_credentials["data"]["data"]["advertiser_ids"]
@@ -210,6 +214,11 @@ class Component(ComponentBase):
     def create_sliced_file(outfile_name):
         if not os.path.exists(outfile_name):
             os.makedirs(outfile_name)
+
+    @sync_action("loadAdvertiserIds")
+    def fetch_advertiser_ids(self) -> List[SelectElement]:
+        ad_ids = self._get_advertiser_ids()
+        return [SelectElement(value=ad_id, label=ad_id) for ad_id in ad_ids]
 
 
 if __name__ == "__main__":
