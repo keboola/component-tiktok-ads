@@ -9,7 +9,19 @@
   "properties": {
     "advertiser_id": {
       "title": "Advertiser ID",
-      "type": "string",
+      "type": "array",
+      "format": "select",
+      "items": {
+        "enum": [],
+        "type": "string"
+      },
+      "options": {
+        "async": {
+          "label": "Re-load Advertiser IDs",
+          "action": "loadAdvertiserIds"
+        }
+      },
+      "uniqueItems": true,
       "propertyOrder": 10,
       "description": "Specifies ad account for which the report will be downloaded. Multiple ad accounts should be input as a comma separated list. If left empty all ad accounts will be downloaded."
     },
