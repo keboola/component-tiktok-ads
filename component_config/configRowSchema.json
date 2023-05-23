@@ -23,10 +23,10 @@
       },
       "uniqueItems": true,
       "propertyOrder": 10,
-      "description": "Specifies ad account for which the report will be downloaded. Multiple ad accounts should be input as a comma separated list. If left empty all ad accounts will be downloaded."
+      "description": "Specifies ad account for which the report will be downloaded. Multiple ad accounts should be input as a comma separated list. If left empty, all ad accounts will be downloaded."
     },
     "report_settings": {
-      "title": "Report Settings",
+      "title": "Report settings",
       "type": "object",
       "propertyOrder": 20,
       "required": [
@@ -66,7 +66,7 @@
           "propertyOrder": 20
         },
         "data_level": {
-          "title": "Data Level",
+          "title": "Data level",
           "type": "string",
           "required": true,
           "enum": [
@@ -80,7 +80,7 @@
             "RESERVATION_ADVERTISER",
             "RESERVATION_CAMPAIGN"
           ],
-          "description": "Select one of the data level types described in the <a href='https://ads.tiktok.com/marketing_api/docs?id=1740302848100353'>documentation</a>. Use NOT_DEFINED if you do not need the data level, e.g. with the report type PLAYABLE_MATERIAL",
+          "description": "Select one of the data level types described in the <a href='https://ads.tiktok.com/marketing_api/docs?id=1740302848100353'>documentation</a>. Use NOT_DEFINED if you do not need the data level, e.g., with the report type PLAYABLE_MATERIAL",
           "propertyOrder": 30
         },
         "dimensions": {
@@ -90,7 +90,7 @@
           "options": {
             "input_height": "100px"
           },
-          "description": "Comma separated list of dimensions to use for the report, find supported dimensions for specific report types in the <a href='https://ads.tiktok.com/marketing_api/docs?id=1738864835805186'>documentation</a>",
+          "description": "Comma-separated list of dimensions to use for the report, find supported dimensions for specific report types in the <a href='https://ads.tiktok.com/marketing_api/docs?id=1738864835805186'>documentation</a>",
           "propertyOrder": 40
         },
         "metrics": {
@@ -100,21 +100,21 @@
             "input_height": "100px"
           },
           "title": "Metrics",
-          "description": "Comma separated list of metrics to use for the report, find supported metrics for specific report types in the <a href='https://ads.tiktok.com/marketing_api/docs?id=1738864835805186'>documentation</a>",
+          "description": "Comma-separated list of metrics to use for the report, find supported metrics for specific report types in the <a href='https://ads.tiktok.com/marketing_api/docs?id=1738864835805186'>documentation</a>",
           "propertyOrder": 50
         },
         "date_from": {
           "type": "string",
-          "title": "Date From",
+          "title": "Date from",
           "default": "1 week ago",
-          "description": "Start date of the report. Either date in YYYY-MM-DD format or dateparser string i.e. 5 days ago, 1 month ago, yesterday, etc.",
+          "description": "Start date of the report. Either date in YYYY-MM-DD format or dateparser string; i.e., 5 days ago, 1 month ago, yesterday, etc.",
           "propertyOrder": 60
         },
         "date_to": {
           "type": "string",
           "title": "Date to",
           "default": "now",
-          "description": "End date of the report. Either date in YYYY-MM-DD format or dateparser string i.e. 5 days ago, 1 month ago, yesterday, etc.",
+          "description": "End date of the report. Either date in YYYY-MM-DD format or dateparser string; i.e., 5 days ago, 1 month ago, yesterday, etc.",
           "propertyOrder": 70
         },
         "filters": {
@@ -171,14 +171,14 @@
       "properties": {
         "output_table_name": {
           "type": "string",
-          "title": "Storage Table Name",
-          "description": "Name of the table stored in Storage.",
+          "title": "Storage table name",
+          "description": "Name of the table stored in Storage",
           "propertyOrder": 10
         },
         "incremental": {
           "type": "boolean",
           "format": "checkbox",
-          "title": "Incremental Load",
+          "title": "Incremental load",
           "description": "If incremental load is turned on, the table will be updated instead of rewritten. Tables with a primary key will have rows updated, tables without a primary key will have rows appended.",
           "propertyOrder": 20
         }
