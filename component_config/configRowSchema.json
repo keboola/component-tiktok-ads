@@ -23,7 +23,7 @@
       },
       "uniqueItems": true,
       "propertyOrder": 10,
-      "description": "Specifies ad account for which the report will be downloaded. Multiple ad accounts should be input as a comma separated list. If left empty, all ad accounts will be downloaded."
+      "description": "Specifies ad accounts for which the report will be downloaded. If left empty, all ad accounts will be downloaded."
     },
     "report_settings": {
       "title": "Report settings",
