@@ -62,5 +62,7 @@ class TikTokClient(HttpClient):
         quoted_word_list = ",".join(f"\"{word}\"" for word in list_to_convert)
         return f"[{quoted_word_list}]"
 
-    def get_authorized_ad_accounts(self) -> List[Dict]:
-        return self.get(endpoint_path="oauth2/advertiser/get/").get("data").get("list")
+    def get_authorized_ad_accounts(self, app_id: str, app_secret: str) -> List[Dict]:
+        params = {"app_id": app_id,
+                  "secret": app_secret}
+        return self.get(endpoint_path="oauth2/advertiser/get", params=params).get("data", {}).get('list', [])

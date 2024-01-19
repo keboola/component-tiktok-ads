@@ -94,7 +94,7 @@ class Component(ComponentBase):
                                                  is_sliced=True)
         self.create_sliced_file(table.full_path)
 
-        self._fetch_and_save_all_report_data(tiktok_client, table)
+        self._fetch_and_save_all_report_data(self._tiktok_client, table)
         self.write_manifest(table)
 
     def _fetch_and_save_all_report_data(self, tiktok_client: TikTokClient, table: TableDefinition) -> None:
@@ -213,10 +213,12 @@ class Component(ComponentBase):
     @sync_action("loadAdvertiserIds")
     def fetch_advertiser_ids(self) -> List[SelectElement]:
         self._init_tiktok_client()
-        ad_ids = self._tiktok_client.get_authorized_ad_accounts()
+        ad_ids = self._tiktok_client.get_authorized_ad_accounts(self.configuration.oauth_credentials.appKey,
+                                                                self.configuration.oauth_credentials.appSecret)
 
         return [
-            SelectElement(value=ad_id['advertiser_id'], label=f'{ad_id["advertiser_name"]} [{ad_id["advertiser_id"]}]')
+            SelectElement(value=str(ad_id['advertiser_id']),
+                          label=f'{ad_id["advertiser_name"]} [{ad_id["advertiser_id"]}]')
             for ad_id in ad_ids]
 
 
