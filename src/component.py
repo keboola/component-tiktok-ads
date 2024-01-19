@@ -1,19 +1,20 @@
 import csv
-import string
-import logging
-import dateparser
-import warnings
 import datetime
-import re
+import logging
 import os
+import re
+import string
+import warnings
 from typing import Tuple, List, Dict
-from tiktok import TikTokClient, TikTokClientException
+
+import dateparser
+from keboola.component.base import ComponentBase, sync_action
+from keboola.component.dao import TableDefinition
+from keboola.component.exceptions import UserException
+from keboola.component.sync_actions import SelectElement
 from keboola.utils.helpers import comma_separated_values_to_list
 
-from keboola.component.base import ComponentBase, sync_action
-from keboola.component.sync_actions import SelectElement
-from keboola.component.exceptions import UserException
-from keboola.component.dao import TableDefinition
+from tiktok import TikTokClient, TikTokClientException
 
 KEY_ACCESS_TOKEN = "#access_token"
 
@@ -53,6 +54,13 @@ class Component(ComponentBase):
 
     def __init__(self):
         super().__init__()
+        self._tiktok_client: TikTokClient
+
+    def _init_tiktok_client(self) -> None:
+        access_token = self.configuration.parameters.get(KEY_ACCESS_TOKEN)
+        if not access_token:
+            access_token = self._get_access_token()
+        self._tiktok_client = TikTokClient(access_token, sandbox=False)
 
     def run(self):
         self.validate_configuration_parameters(REQUIRED_PARAMETERS)
@@ -65,12 +73,7 @@ class Component(ComponentBase):
         self._add_last_run_to_state()
 
         params = self.configuration.parameters
-
-        access_token = params.get(KEY_ACCESS_TOKEN)
-        if not access_token:
-            access_token = self._get_access_token()
-
-        tiktok_client = TikTokClient(access_token, sandbox=False)
+        self._init_tiktok_client()
 
         destination = params.get(KEY_DESTINATION)
         destination_incremental = destination.get(KEY_DESTINATION_INCREMENTAL)
@@ -166,14 +169,6 @@ class Component(ComponentBase):
         else:
             advertiser_ids = params.get(KEY_ADVERTISER_ID, [])
         if not advertiser_ids:
-            try:
-                return self.configuration.oauth_credentials["data"]["data"]["advertiser_ids"]
-            except (KeyError, TypeError) as err:
-                raise UserException(
-                    f"Configuration is improperly authorized, could not get advertiser ids from OAuth Credentials."
-                    " Response from TikTok : "
-                    f"{self.configuration.oauth_credentials['data']['data'].get('message')}") from err
-        if not advertiser_ids:
             advertiser_ids = []
         return advertiser_ids
 
@@ -217,8 +212,12 @@ class Component(ComponentBase):
 
     @sync_action("loadAdvertiserIds")
     def fetch_advertiser_ids(self) -> List[SelectElement]:
-        ad_ids = self._get_advertiser_ids()
-        return [SelectElement(value=ad_id, label=ad_id) for ad_id in ad_ids]
+        self._init_tiktok_client()
+        ad_ids = self._tiktok_client.get_authorized_ad_accounts()
+
+        return [
+            SelectElement(value=ad_id['advertiser_id'], label=f'{ad_id["advertiser_name"]} [{ad_id["advertiser_id"]}]')
+            for ad_id in ad_ids]
 
 
 if __name__ == "__main__":
