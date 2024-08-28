@@ -169,7 +169,11 @@ class Component(ComponentBase):
         else:
             advertiser_ids = params.get(KEY_ADVERTISER_ID, [])
         if not advertiser_ids:
-            advertiser_ids = []
+            advertisers = self._tiktok_client.get_authorized_ad_accounts(
+                self.configuration.oauth_credentials.appKey,
+                self.configuration.oauth_credentials.appSecret)
+            advertiser_ids = [str(ad_id['advertiser_id']) for ad_id in advertisers]
+
         return advertiser_ids
 
     @staticmethod
