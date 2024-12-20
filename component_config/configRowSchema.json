@@ -31,7 +31,6 @@
       "propertyOrder": 20,
       "required": [
         "dimensions",
-        "metrics",
         "report_type",
         "date_from",
         "service_type",
