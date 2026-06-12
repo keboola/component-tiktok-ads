@@ -1,1 +1,1 @@
-TikTok is a video-sharing focused social networking service.
+Extracts TikTok Ads reports.
